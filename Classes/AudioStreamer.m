@@ -664,14 +664,12 @@ static void ASReadStreamCallBack
 		if( [[url absoluteString] rangeOfString:@"https"].location != NSNotFound )
 		{
 			NSDictionary *sslSettings =
-				[NSDictionary dictionaryWithObjectsAndKeys:
-					(NSString *)kCFStreamSocketSecurityLevelNegotiatedSSL, kCFStreamSSLLevel,
-					[NSNumber numberWithBool:YES], kCFStreamSSLAllowsExpiredCertificates,
-					[NSNumber numberWithBool:YES], kCFStreamSSLAllowsExpiredRoots,
-					[NSNumber numberWithBool:YES], kCFStreamSSLAllowsAnyRoot,
-					[NSNumber numberWithBool:NO], kCFStreamSSLValidatesCertificateChain,
-					[NSNull null], kCFStreamSSLPeerName,
-				nil];
+				@{(id)kCFStreamSSLLevel: (NSString *)kCFStreamSocketSecurityLevelNegotiatedSSL,
+					(id)kCFStreamSSLAllowsExpiredCertificates: @YES,
+					(id)kCFStreamSSLAllowsExpiredRoots: @YES,
+					(id)kCFStreamSSLAllowsAnyRoot: @YES,
+					(id)kCFStreamSSLValidatesCertificateChain: @NO,
+					(id)kCFStreamSSLPeerName: [NSNull null]};
 
 			CFReadStreamSetProperty(stream, kCFStreamPropertySSLSettings, (__bridge CFTypeRef)(sslSettings));
 		}
@@ -754,6 +752,7 @@ static void ASReadStreamCallBack
 			// Set the audio session category so that we continue to play if the
 			// iPhone/iPod auto-locks.
 			//
+        
 			AudioSessionInitialize (
 				NULL,                          // 'NULL' to use the default (main) run loop
 				NULL,                          // 'NULL' to use the default run loop mode
@@ -1271,7 +1270,7 @@ cleanup:
 			//
 			if (seekByteOffset == 0)
 			{
-				fileLength = [[httpHeaders objectForKey:@"Content-Length"] integerValue];
+				fileLength = [httpHeaders[@"Content-Length"] integerValue];
 			}
 		}
 

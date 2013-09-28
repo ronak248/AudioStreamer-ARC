@@ -29,6 +29,7 @@
 
 #include <pthread.h>
 #include <AudioToolbox/AudioToolbox.h>
+#import <AVFoundation/AVFoundation.h>
 
 #define LOG_QUEUED_BUFFERS 0
 

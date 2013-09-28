@@ -172,11 +172,11 @@
 
 	[CATransaction begin];
 	[CATransaction setValue:(id)kCFBooleanFalse forKey:kCATransactionDisableActions];
-	[CATransaction setValue:[NSNumber numberWithFloat:2.0] forKey:kCATransactionAnimationDuration];
+	[CATransaction setValue:@2.0f forKey:kCATransactionAnimationDuration];
 
 	CABasicAnimation *animation;
 	animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-	animation.fromValue = [NSNumber numberWithFloat:0.0];
+	animation.fromValue = @0.0f;
 	animation.toValue = [NSNumber numberWithFloat:2 * M_PI];
 	animation.timingFunction = [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionLinear];
 	animation.delegate = self;
